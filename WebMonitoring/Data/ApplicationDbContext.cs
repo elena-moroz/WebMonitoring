@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using WebMonitoring.Models;
 
 namespace WebMonitoring.Data
@@ -12,7 +11,7 @@ namespace WebMonitoring.Data
         {
         }
 
-        public virtual ICollection<Article> Articles { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

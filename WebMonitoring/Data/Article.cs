@@ -14,7 +14,7 @@ namespace WebMonitoring.Data
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
         public virtual string Url { get; set; }
-        public virtual string UrlToImage { get; set; }
+        public virtual string ImageUrl { get; set; }
         public virtual DateTime? PublishedAt { get; set; }
     }
 }
