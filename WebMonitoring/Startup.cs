@@ -34,7 +34,7 @@ namespace WebMonitoring
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IJob, WebMonitoringJob>();
+            services.AddTransient<WebMonitoringJob>();
             services.AddTransient<IJobFactory, WebMonitoringJobFactory>();
             services.AddHostedService<WebMonitoringHostedService>();
 

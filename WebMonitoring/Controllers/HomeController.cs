@@ -56,7 +56,8 @@ namespace WebMonitoring.Controllers
             {
                 Name = model.Name,
                 Url = model.Url,
-                IsActive = model.IsActive
+                IsActive = model.IsActive,
+                LastMonitoringDate = DateTime.UtcNow
             });
             await _dbContext.SaveChangesAsync();
 
@@ -81,12 +82,11 @@ namespace WebMonitoring.Controllers
         {
             var user = await GetCurrentUserAsync();
             var website = user.Websites.First(item => item.Id == model.Id);
+
             website.Name = model.Name;
             website.IsActive = model.IsActive;
-            _dbContext.Entry(website).CurrentValues.SetValues(website);
-            //_dbContext.Entry(website).Property(nameof(website.Id)).IsModified = false;
-            //_dbContext.Entry(website).Property(nameof(website.Url)).IsModified = false;
 
+            _dbContext.Entry(website).CurrentValues.SetValues(website);
             await _dbContext.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
@@ -97,6 +97,7 @@ namespace WebMonitoring.Controllers
         {
             var user = await GetCurrentUserAsync();
             var website = user.Websites.First(item => item.Id == id);
+
             _dbContext.Websites.Remove(website);
             await _dbContext.SaveChangesAsync();
 
