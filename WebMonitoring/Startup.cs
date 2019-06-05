@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NewsAPI;
 using WebMonitoring.Data;
 using WebMonitoring.Models;
 using WebMonitoring.Services;
@@ -31,6 +32,9 @@ namespace WebMonitoring
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            var newsApiClient = new NewsApiClient("0aef94988f9f4094a88ca98c526ed936");
+            services.AddSingleton(newsApiClient);
 
             services.AddMvc();
         }

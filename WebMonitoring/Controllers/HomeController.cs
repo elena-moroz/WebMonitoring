@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace WebMonitoring.Controllers
             {
                 Id = item.Id,
                 Url = item.Url,
-                IsActive = item.IsActive
+                IsActive = item.IsActive,
+                Name = item.Name
             }).ToList();
 
             return View(new HomepageModel
@@ -52,9 +54,50 @@ namespace WebMonitoring.Controllers
             var user = await GetCurrentUserAsync();
             user.Websites.Add(new Website
             {
+                Name = model.Name,
                 Url = model.Url,
                 IsActive = model.IsActive
             });
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateWebsite(Guid id)
+        {
+            var user = await GetCurrentUserAsync();
+            var website = user.Websites.First(item => item.Id == id);
+            return View(new UpdateUserWebsiteModel
+            {
+                Id = id,
+                IsActive = website.IsActive,
+                Name = website.Name
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateWebsite(UpdateUserWebsiteModel model)
+        {
+            var user = await GetCurrentUserAsync();
+            var website = user.Websites.First(item => item.Id == model.Id);
+            website.Name = model.Name;
+            website.IsActive = model.IsActive;
+            _dbContext.Entry(website).CurrentValues.SetValues(website);
+            //_dbContext.Entry(website).Property(nameof(website.Id)).IsModified = false;
+            //_dbContext.Entry(website).Property(nameof(website.Url)).IsModified = false;
+
+            await _dbContext.SaveChangesAsync();
+            
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteWebsite(Guid id)
+        {
+            var user = await GetCurrentUserAsync();
+            var website = user.Websites.First(item => item.Id == id);
+            _dbContext.Websites.Remove(website);
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

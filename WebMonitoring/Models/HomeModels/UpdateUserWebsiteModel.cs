@@ -2,11 +2,10 @@
 
 namespace WebMonitoring.Models.HomeModels
 {
-    public class WebsiteModel
+    public class UpdateUserWebsiteModel
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
         public bool IsActive { get; set; }
+        public string Name { get; set; }
     }
 }

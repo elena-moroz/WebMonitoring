@@ -1,35 +1,32 @@
-﻿@model WebMonitoring.Models.HomeModels.AddUserWebsiteModel
+﻿@model WebMonitoring.Models.HomeModels.UpdateUserWebsiteModel
 
 @{
-    ViewData["Title"] = "AddWebsite";
+    ViewData["Title"] = "UpdateWebsite";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add New Website</h2>
+<h2>Update website</h2>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddWebsite">
+        <form asp-action="UpdateWebsite">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(model => model.Id)
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Url" class="control-label"></label>
-                <input asp-for="Url" class="form-control" />
-                <span asp-validation-for="Url" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                        <input asp-for="IsActive" /> Make website active to continue to monitor it
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
