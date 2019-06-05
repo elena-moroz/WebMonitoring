@@ -12,6 +12,7 @@ namespace WebMonitoring.Data
         }
 
         public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<Website> Websites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
